@@ -45,6 +45,10 @@ public struct SimpleEndpointMapper: EndpointMapper {
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
         
+        for (header, value) in endpoint.headers {
+            request.setValue(value, forHTTPHeaderField: header)
+        }
+        
         switch endpoint.body {
         case .raw(let data):
             request.httpBody = data
